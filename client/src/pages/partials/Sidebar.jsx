@@ -1,19 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { UserContext } from "../../components/UserContext"
+
 
 function Sidebar() {
 
-     const [isAuth, setIsAuth] = useState(false)
-     const [role, setRole] = useState('')
-     useEffect(()=> {
-          axios.get('http://localhost:3030').then((response) => {
-               console.log(response.data)
-               setIsAuth(response.data.isAuthenticated)
-               setRole(response.data.role)
-          })
-          .catch(err => { console.log(err) })
-     }, [])
+     const { role } = useContext(UserContext)
 
      return (
           <>
@@ -22,7 +14,7 @@ function Sidebar() {
                     <li className="sidebar-brand">
                          <Link to="/"> Manage Account </Link>
                     </li>
-                    {role == 'Owner' ? <>
+                    {role === 'Owner' ? <>
                     <li>
                          <Link to="/cars">Cars List</Link>
                     </li>
@@ -31,13 +23,16 @@ function Sidebar() {
                     </li>
                     
                     </>:
-
+                    <>
                     <li>
                          <Link to="/status-requists">Status Requists</Link> 
                     </li>
+                    <li>
+                         <Link to="/try-car">Try Car</Link>
+                    </li>
+                    </>
                     }
-                    
-                    
+
                </ul>
           </div>
           </>

@@ -32,7 +32,6 @@ function StatusCarReq() {
                          {/* Header Table */}
                          <thead className="thead-dark">
                          <tr>
-                              <th>Client Name</th>
                               <th>Car Mark</th>
                               <th>Rroposed Reduction(%)</th>
                               <th>Origin Price(DHs)</th>
@@ -46,7 +45,6 @@ function StatusCarReq() {
 
                          {reqlist.map((val, key) => (
                               <tr key={key}>
-                                   <td>{val.id_client.first_name}</td>
                                    <td><Link to={`/item=${val.id_car._id}`}> {val.id_car.mark} </Link></td>
                                    <td>{val.proposed_reduction}</td>
                                    <td>{val.id_car.price}</td>

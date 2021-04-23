@@ -141,12 +141,12 @@ exports.tryCar = async (req, res) => {
 
 
      if(globalTries.global_tries === 10) {
-          return res.json({message: 'You\'are reach max tries'})
+          return res.json({message: 'You\'are reach max tries', satatus: 'no'})
      }
      
      TryCar.findOne({id_car: id, id_client: client_id}).then(data => {
           if(data) {
-               return res.json({message: "This car is already tested!"})
+               return res.json({message: "This car is already tested!", satatus: 'no'})
           }
 
           new TryCar({
@@ -162,6 +162,29 @@ exports.tryCar = async (req, res) => {
 
      })
 
+}
+
+
+// Get Try Car
+exports.getTryCar = async (req, res) => {
+
+     // Get Client ID
+     let client_id
+     const token = req.cookies.clientship
+     if (token) {
+          jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+               if (err) throw err
+               client_id = decodedToken.id
+          })
+     } else {
+          return res.json('NOOP')
+     }
+
+
+     TryCar.find({id_client: client_id}).populate('id_car id_client')
+     .then(data => {
+          return res.json(data)
+     })
 }
 
 
@@ -187,7 +210,7 @@ exports.reserveCar = async (req, res) => {
 
      ReserveCar.findOne({id_car: id, id_client: client_id}).then(data => { 
           if(data) {
-               return res.json({message: "This car is already reserved!"})
+               return res.json({message: "This car is already reserved!", status: "no"})
           }
 
           // Add reserve requist
@@ -204,7 +227,6 @@ exports.reserveCar = async (req, res) => {
      })
 
 }
-
 
 
 // Car requists
@@ -250,15 +272,6 @@ exports.confirmReq = (req, res) => {
      })
 }
 
-// client list car requist
-// exports.clientListCarReq = (req, res) => {
-//      const {id, confirm } = req.body
-
-//      console.log(id, confirm)
-
-// }
-
-
 
 // Places generator
 exports.places = async (req, res) => {
@@ -285,4 +298,26 @@ exports.places = async (req, res) => {
      //           res.json(data)
      //      })
      // }     
+}
+
+
+// Profile
+exports.profile = async (req, res) => {
+
+     // Get Client ID
+     let client_id
+     const token = req.cookies.clientship
+     if (token) {
+          jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+               if (err) throw err
+               client_id = decodedToken.id
+          })
+     } else {
+          return res.json('NOOP')
+     }
+     
+     Client.findById(client_id)
+     .then(data => {
+          return res.json(data)
+     })
 }

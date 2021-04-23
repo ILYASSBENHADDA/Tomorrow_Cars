@@ -42,6 +42,9 @@ router.post('/confirm-requist', crud.confirmReq)
 // Try Car
 router.post('/try-car', crud.tryCar)
 
+// Get Try Car
+router.get('/get-try-car', crud.getTryCar)
+
 /******************************************/
 
 // Register 

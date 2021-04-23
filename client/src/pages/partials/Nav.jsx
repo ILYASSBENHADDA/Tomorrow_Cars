@@ -1,19 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { UserContext } from "../../components/UserContext"
+
 
 function Nav() {
 
-     const [isAuth, setIsAuth] = useState(false)
-     const [role, setRole] = useState('')
-     useEffect(()=> {
-          axios.get('http://localhost:3030').then((response) => {
-               console.log(response.data)
-               setIsAuth(response.data.isAuthenticated)
-               setRole(response.data.role)
-          })
-          .catch(err => { console.log(err) })
-     }, [])
+     const {role, isAuth} = useContext(UserContext)
+
 
      return (
           <>

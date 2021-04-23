@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import Nav from './partials/Nav'
 
 
-
 function Single() {
      const { id } = useParams()
      const [oneCar, setOneCar] = useState('')
@@ -18,18 +17,30 @@ function Single() {
 
      // Reserve Car
      const reserveCar = () => {
-          axios.post('http://localhost:3030/api/reserve-car', {id, reduction}).then(response => {
-               console.log(response)
-               // setOneCar(response.data)
-          })
+          const ask = window.confirm('Confirm your reservation!')
+          if (ask === true) {
+               axios.post('http://localhost:3030/api/reserve-car', {id, reduction}).then(response => {
+                    if (response.data.status === 'no') {
+                         return alert(response.data.message)
+                    } else {
+                         alert(response.data.message)
+                    }
+               })
+          }
      }
 
      // Try Car
      const tryCar = () => {
-          axios.post('http://localhost:3030/api/try-car', {id}).then(response => {
-               console.log(response)
-               // setOneCar(response.data)
-          })
+          const ask = window.confirm('Confirm your try!')
+          if (ask === true) {
+               axios.post('http://localhost:3030/api/try-car', {id}).then(response => {
+                    if (response.data.status === 'no') {
+                         return alert(response.data.message)
+                    } else {
+                         alert(response.data.message)
+                    }
+               })
+          }
      }
 
      return (
@@ -66,7 +77,7 @@ function Single() {
                                         <dl className="param param-inline">
                                              <dt>Proposed Reduction (%): </dt>
                                              <dd>
-                                                  <input type="number" className="form-control" onChange={(e) => { setReduction(e.target.value) }} style={{width: 70 + 'px'}} />
+                                                  <input type="number" className="form-control" min="0" placeholder="0" onChange={(e) => { setReduction(e.target.value) }} style={{width: 70 + 'px'}} />
                                              </dd>
                                         </dl>
                                    </div>

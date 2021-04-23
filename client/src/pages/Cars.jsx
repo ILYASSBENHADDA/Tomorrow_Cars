@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react"
 import axios from 'axios'
 import Nav from './partials/Nav'
 import Sidebar from "./partials/Sidebar"
-// import { Link } from "react-router-dom"
 import AddCar from "./partials/AddCar"
 import { Link } from "react-router-dom"
 

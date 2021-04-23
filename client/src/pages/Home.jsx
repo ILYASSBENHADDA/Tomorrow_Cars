@@ -6,15 +6,12 @@ import { Link } from 'react-router-dom'
 function Home() {
      const [carList, setCarList] = useState([])
 
-
      useEffect(()=> {
           axios.get('http://localhost:3030/api/read').then(response => {
                setCarList(response.data)
                console.log(response)
           })
      }, [])
-
-
 
 
      return (

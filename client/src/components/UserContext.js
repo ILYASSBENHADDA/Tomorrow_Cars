@@ -1,17 +1,27 @@
-import React, { createContext, useContext, useState } from 'react'
+import axios from 'axios'
+import React, { createContext, useState, useEffect } from 'react'
 
 export const UserContext = createContext(null)
 
 
 export function UserProvider({ children }) {
 
-     // const [role, setRole] = useState('')
-     // setRole('owner')
+     const [isAuth, setIsAuth] = useState(false)
+     const [role, setRole] = useState('')
+
+     useEffect(()=> {
+          axios.get('http://localhost:3030').then((response) => {
+               console.log(response.data)
+               setIsAuth(response.data.isAuthenticated)
+               setRole(response.data.role)
+          })
+          .catch(err => { console.log(err) })
+     }, [])
 
 
      return (
           <>
-               <UserContext.Provider value={{message: "Hi from context API", test: "Tesla"}}>
+               <UserContext.Provider value={{isAuth: isAuth, role: role}}>
                     {children}
                </UserContext.Provider>
           </>
