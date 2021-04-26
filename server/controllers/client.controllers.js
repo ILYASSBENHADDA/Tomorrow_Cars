@@ -1,4 +1,5 @@
 const Client = require('../models/client')
+const Owner = require('../models/owner')
 const OwnerCar = require('../models/owner_car')
 const ReserveCar = require('../models/reserve_car')
 const TryCar = require('../models/try_car')
@@ -115,4 +116,37 @@ exports.getTryCar = async (req, res) => {
      .then(data => {
           return res.json(data)
      })
+}
+
+
+// Profile
+exports.profile = async (req, res) => {
+
+     // Get Client ID
+     let client_id
+     let owner_id
+     const token = req.cookies.ownership || req.cookies.clientship
+     if (token) {
+          jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+               if (err) throw err
+               // Owner
+               if (decodedToken.role === 'owner') {
+                    owner_id = decodedToken.id
+                    Owner.findById(owner_id)
+                    .then(data => {
+                         return res.json(data)
+                    })
+               }
+               else if (decodedToken.role === 'client') {
+                    client_id = decodedToken.id
+                    Client.findById(client_id)
+                    .then(data => {
+                         return res.json(data)
+                    })
+               }
+          })
+     } else {
+          return res.json('NOOP')
+     }
+
 }

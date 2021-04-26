@@ -1,4 +1,5 @@
 const Client = require('../models/client')
+const Owner = require('../models/owner')
 const Car = require('../models/car')
 const Place = require('../models/place')
 const ReserveCar = require('../models/reserve_car')
@@ -70,26 +71,4 @@ exports.places = async (req, res) => {
      //           res.json(data)
      //      })
      // }     
-}
-
-
-// Profile
-exports.profile = async (req, res) => {
-
-     // Get Client ID
-     let client_id
-     const token = req.cookies.clientship
-     if (token) {
-          jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-               if (err) throw err
-               client_id = decodedToken.id
-          })
-     } else {
-          return res.json('NOOP')
-     }
-     
-     Client.findById(client_id)
-     .then(data => {
-          return res.json(data)
-     })
 }

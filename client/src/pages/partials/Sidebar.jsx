@@ -25,6 +25,9 @@ function Sidebar() {
                     </>:
                     <>
                     <li>
+                         <Link to="/profile">Profile</Link> 
+                    </li>
+                    <li>
                          <Link to="/status-requists">Status Requists</Link> 
                     </li>
                     <li>

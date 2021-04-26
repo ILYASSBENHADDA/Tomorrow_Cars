@@ -1,8 +1,18 @@
-import React from "react"
+import axios from "axios"
+import React, { useState, useEffect } from "react"
 import Nav from './partials/Nav'
 import Sidebar from "./partials/Sidebar"
 
 function Profile() {
+
+     const [userInfo, setUserInfo] = useState([])
+
+     useEffect(()=> {
+          axios.get('http://localhost:3030/api/profile').then(response => {
+               setUserInfo(response.data)
+               console.log(response)
+          })
+     }, [])
      
      return (
           <>
@@ -15,28 +25,31 @@ function Profile() {
                     <div className="container-fluid">
                          <div className="row">
                               <h1>Profile</h1>
-                              <button >SEND</button>
-                              <table className="table">
+                              <table className="table mt-3">
                                    <tbody>
                                         <tr>
-                                             <th scope="row">Full Name</th>
-                                             <td>AZERTY</td>
+                                             <th>First Name</th>
+                                             <td>{userInfo.first_name}</td>
                                         </tr>
                                         <tr>
-                                             <th scope="row">Email</th>
-                                             <td>ilyass@mail.com</td>
+                                             <th>Last Name</th>
+                                             <td>{userInfo.last_name}</td>
                                         </tr>
                                         <tr>
-                                             <th scope="row">Phone Number</th>
-                                             <td>234567890</td>
+                                             <th>Email</th>
+                                             <td>{userInfo.email}</td>
                                         </tr>
                                         <tr>
-                                             <th scope="row">Age</th>
-                                             <td>100</td>
+                                             <th>CIN</th>
+                                             <td>{userInfo.cin}</td>
                                         </tr>
                                         <tr>
-                                             <th scope="row">Address</th>
-                                             <td>Tantan</td>
+                                             <th>Phone Number</th>
+                                             <td>{userInfo.phone}</td>
+                                        </tr>
+                                        <tr>
+                                             <th>Global Tries</th>
+                                             <td>{userInfo.global_tries}</td>
                                         </tr>
                                    </tbody>
                               </table>

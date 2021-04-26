@@ -19,7 +19,7 @@ function Home() {
           <Nav />
           <section className="jumbotron text-center">
                <div className="container">
-                    <h1 className="jumbotron-heading">ILYASS AUTO</h1>
+                    <h1 className="jumbotron-heading">Tomorrow Cars</h1>
                </div>
           </section>
 

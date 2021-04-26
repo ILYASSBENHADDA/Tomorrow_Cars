@@ -72,7 +72,7 @@ function Cars() {
                                         <td>{val.id_car.fuel}</td>
                                         <td>{val.id_car.is_saled ? "SALED" : "INSTOCK"}</td>
                                         <td>
-                                             <button onClick={()=>{deleteCar(val.id_car._id)}} className="btn btn-secondary sm"><i className="far fa-trash-alt"></i></button>
+                                             <button onClick={()=>{deleteCar(val.id_car._id)}} className="btn btn-secondary sm mr-1"><i className="far fa-trash-alt"></i></button>
                                              <Link to={`/edit=${val.id_car._id}`} className="btn btn-secondary sm"><i className="far fa-edit"></i></Link>
                                         </td>
                                    </tr>

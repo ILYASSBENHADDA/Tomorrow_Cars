@@ -52,6 +52,7 @@ function Routes() {
                          {/* Client Routes */}
                          <ProtectedClientRouter path="/status-requists" component={StatusCarReq} isAuth={isAuth} role={role} />
                          <ProtectedClientRouter path="/try-car" component={TryCar} isAuth={isAuth} role={role} />
+                         <ProtectedClientRouter path="/profile" component={Profile} isAuth={isAuth} role={role} />
 
                          
 
