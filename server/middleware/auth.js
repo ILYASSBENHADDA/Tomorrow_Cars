@@ -1,6 +1,4 @@
-const jwt = require('jsonwebtoken');
-const Owner = require('../models/owner');
-const Client = require('../models/client');
+const jwt = require('jsonwebtoken')
 
 
 exports.isLoggedIn =  (req, res, next) => {
@@ -11,22 +9,18 @@ exports.isLoggedIn =  (req, res, next) => {
             if (err) throw err
             
             else {
-                // req.user = await Owner.findById(decodedToken.id).select('-password')
-                // if (decodedToken.role === 'owner') {
-                //     res.json({ role: 'Owner', isAuthenticated: true })
-                // }
                 next()
             }
         })
     }
     else {
-        res.status(400).json('you\'re not logged in')
+        res.json('you\'re not logged in')
     }
 
 }
 
 
-// check current user
+// Check user role & is auth or not
 exports.checkUser = (req, res, next) => {
     const token = req.cookies.ownership || req.cookies.clientship
     if (token) {

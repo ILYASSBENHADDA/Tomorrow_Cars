@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const Client = require('../models/client')
 const Owner = require('../models/owner')
 const jwt = require('jsonwebtoken')
+const { clientRegistrationValidation, ownerRegisterValidation } = require('../validations/auth')
 
 
 // Create json web token
@@ -16,6 +17,12 @@ const createToken = (id, role) => {
 // Register
 exports.registerOwner = (req, res) => {
      const {firstName, lastName, cin, email, rib, phone, password} = req.body
+
+     // Validation fields
+     const { error } = ownerRegisterValidation(req.body)
+     if ( error ) {
+          return res.json({ message: error.details[0].message })
+     }
 
      let hashedPassword = bcrypt.hashSync(password, 8)
 
@@ -47,6 +54,13 @@ exports.registerOwner = (req, res) => {
 exports.registerClient = (req, res) => {
      const {firstName, lastName, cin, email, phone, password} = req.body
 
+     // Validation fields
+     const { error } = clientRegistrationValidation(req.body)
+     if ( error ) {
+          return res.json({ message: error.details[0].message })
+     }
+
+     // Hash password
      let hashedPassword = bcrypt.hashSync(password, 8)
 
      Client.findOne({email: email}).then(function(client) {
@@ -123,7 +137,7 @@ exports.loginClient = (req, res) => {
           return res.status(200).cookie('clientship', token, {
                httpOnly: false,
                maxAge: maxAge * 1000
-          }).json({message: 'You\'re LoggedIn'})
+          }).json({message: 'You\'re LoggedIn', red: 1})
 
      }).catch(function(err) {console.log(err)})
  

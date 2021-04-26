@@ -31,8 +31,8 @@ function Home() {
 
                {carList.map((val, key) => (
                     
-               <div className="col-md-4 mb-3">
-                    <div className="card" key={key}>
+               <div className="col-md-4 mb-3" key={key}>
+                    <div className="card">
                          {/* <img src="uploads/" className="card-img-top" /> */}
                          <div className="card-body">
                               <h5 className="float-right">{val.price} DHs</h5>

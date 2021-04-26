@@ -15,10 +15,10 @@ function CarRequists() {
           })
      }, [])
 
-     const validReq =  (id) => {
+     const validReq = (id, id_car) => {
           const ask = window.confirm('Are you want to accept this requist?')
           if (ask === true) {
-               axios.post('http://localhost:3030/api/confirm-requist', {id, confirm}).then(()=> {
+               axios.post('http://localhost:3030/api/confirm-requist', {id, id_car, confirm}).then(()=> {
                     window.location.reload()
                     return console.log('OK')
                })
@@ -74,7 +74,7 @@ function CarRequists() {
                                         <th>{(val.id_car.price / 100) * (100 - val.proposed_reduction)}</th>
                                         {/* <td> <button onClick={()=>{validReq(val._id)}} className="btn btn-secondary sm">OK</button> <button onClick={()=>{refuseReq(val._id)}} className="btn btn-secondary sm">NO</button> </td> */}
                                         
-                                        <th> {val.is_accepted == null ? <> <button onClick={()=>{validReq(val._id)}} className="btn btn-secondary sm">OK</button> <button onClick={()=>{refuseReq(val._id)}} className="btn btn-secondary sm">NO</button> </> : (val.is_accepted ? (<div style={{ color: 'green' }}> Validated </div>) : null) }</th>
+                                        <th> {val.is_accepted == null ? <> <button onClick={()=>{validReq(val._id, val.id_car)}} className="btn btn-secondary sm">OK</button> <button onClick={()=>{refuseReq(val._id)}} className="btn btn-secondary sm">NO</button> </> : (val.is_accepted ? (<div style={{ color: 'green' }}> Validated </div>) : null) }</th>
                                    </tr>
                               ))}
 
