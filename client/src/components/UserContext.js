@@ -1,5 +1,5 @@
-import axios from 'axios'
 import React, { createContext, useState, useEffect } from 'react'
+import axios from 'axios'
 
 export const UserContext = createContext(null)
 
@@ -8,6 +8,7 @@ export function UserProvider({ children }) {
 
      const [isAuth, setIsAuth] = useState(false)
      const [role, setRole] = useState('')
+     const [userInfo, setUserInfo] = useState([])
 
      useEffect(()=> {
           axios.get('http://localhost:3030').then((response) => {
@@ -18,37 +19,20 @@ export function UserProvider({ children }) {
           .catch(err => { console.log(err) })
      }, [])
 
+     // Owner & Client Info
+     useEffect(()=> {
+          axios.get('http://localhost:3030/api/profile').then(response => {
+               setUserInfo(response.data)
+               // console.log(response)
+          })
+     }, [])
+
 
      return (
           <>
-               <UserContext.Provider value={{isAuth: isAuth, role: role}}>
+               <UserContext.Provider value={{isAuth: isAuth, role: role, userInfo: userInfo}}>
                     {children}
                </UserContext.Provider>
           </>
      )
 }
-
-
-
-// export const UserRole = createContext(null)
-
-
-// export function useGlobalV() {
-//      return useContext(UserRole)
-// }
-
-
-// export function UserProvider({ children }) {
-
-//      const [role, setRole] = useState('')
-//      setRole('owner')
-
-
-//      return (
-//           <>
-//                <UserRole.Provider value={role}>
-//                     {children}
-//                </UserRole.Provider>
-//           </>
-//      )
-// }

@@ -27,15 +27,8 @@ function Routes() {
           <div>
                <Router>
                     <Switch>
-                         {/* <Route path="/login" component={Login}/> */}
-                         {/* <Route exact path="/status-requists" component={StatusCarReq}/> */}
-                         {/* <Route exact path="/cars" component={Cars}/> */}
-                         {/* <Route exact path="/register" component={Register}/> */}
-                         {/* <Route exact path="/requists" component={CarRequists}/> */}
-                         {/* <Route exact path="/edit=:id" component={Edit}/> */}
 
-
-
+                         {/* Global Routes */}
                          <Route exact path="/" component={Home}/>
                          <Route exact path="/item=:id" component={Single}/>
                          <Route path="/logout" component={Logout}/>
@@ -43,6 +36,7 @@ function Routes() {
                          {/* Auth Routes */}
                          <ProtectedAuthRouter path="/login" component={Login} isAuth={isAuth} />
                          <ProtectedAuthRouter path="/register" component={Register} isAuth={isAuth} />
+                         <ProtectedAuthRouter path="/profile" component={Profile} isAuth={!isAuth} />
 
                          {/* Owner Routes */}
                          <ProtectedOnwerRouter path="/cars" component={Cars} isAuth={isAuth} role={role} />
@@ -52,12 +46,7 @@ function Routes() {
                          {/* Client Routes */}
                          <ProtectedClientRouter path="/status-requists" component={StatusCarReq} isAuth={isAuth} role={role} />
                          <ProtectedClientRouter path="/try-car" component={TryCar} isAuth={isAuth} role={role} />
-                         <ProtectedClientRouter path="/profile" component={Profile} isAuth={isAuth} role={role} />
 
-                         
-
-
-                         <Route exact path="/profile" component={Profile}/>
                          <Route exact path="/404" component={NotFound}/>
                          <Redirect to="/404" />
                     </Switch>

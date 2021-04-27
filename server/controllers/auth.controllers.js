@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const Client = require('../models/client')
 const Owner = require('../models/owner')
 const jwt = require('jsonwebtoken')
-const { clientRegistrationValidation, ownerRegisterValidation } = require('../validations/auth')
+const { clientRegistrationValidation, ownerRegisterValidation, LoginValidation } = require('../validations/auth')
 
 
 // Create json web token
@@ -14,7 +14,7 @@ const createToken = (id, role) => {
 }
 
 
-// Register
+// Register Owner
 exports.registerOwner = (req, res) => {
      const {firstName, lastName, cin, email, rib, phone, password} = req.body
 
@@ -50,7 +50,7 @@ exports.registerOwner = (req, res) => {
      }).catch(function(err) {console.log(err)})
 }
 
-
+// Register Client
 exports.registerClient = (req, res) => {
      const {firstName, lastName, cin, email, phone, password} = req.body
 
@@ -87,9 +87,15 @@ exports.registerClient = (req, res) => {
 }
 
 
-// Login
+// Login Owner
 exports.loginOwner = (req, res) => {
      const {email, password} = req.body
+
+     // Validation fields
+     const { error } = LoginValidation(req.body)
+     if ( error ) {
+          return res.json({ message: error.details[0].message })
+     }
 
      Owner.findOne({email: email}).then(function(owner) {
 
@@ -115,8 +121,16 @@ exports.loginOwner = (req, res) => {
  
 }
 
+
+// Login client
 exports.loginClient = (req, res) => {
      const {email, password} = req.body
+
+     // Validation fields
+     const { error } = LoginValidation(req.body)
+     if ( error ) {
+          return res.json({ message: error.details[0].message })
+     }
 
      Client.findOne({email: email}).then(function(client) {
 
@@ -144,6 +158,7 @@ exports.loginClient = (req, res) => {
 }
 
 
+// Logout
 exports.logout = (req, res) => {
     res.cookie('ownership', '', { maxAge: 1 })
     res.cookie('clientship', '', { maxAge: 1 })

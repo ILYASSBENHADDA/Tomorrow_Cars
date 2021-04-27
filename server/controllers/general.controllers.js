@@ -45,6 +45,38 @@ exports.carRequist = async (req, res) => {
 }
 
 
+// Profile
+exports.profile = async (req, res) => {
+
+     // Get Client ID
+     let client_id
+     let owner_id
+     const token = req.cookies.ownership || req.cookies.clientship
+     if (token) {
+          jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+               if (err) throw err
+               // Owner
+               if (decodedToken.role === 'owner') {
+                    owner_id = decodedToken.id
+                    Owner.findById(owner_id)
+                    .then(data => {
+                         return res.json(data)
+                    })
+               }
+               else if (decodedToken.role === 'client') {
+                    client_id = decodedToken.id
+                    Client.findById(client_id)
+                    .then(data => {
+                         return res.json(data)
+                    })
+               }
+          })
+     } else {
+          return res.json('NOOP')
+     }
+
+}
+
 
 // Places generator
 exports.places = async (req, res) => {

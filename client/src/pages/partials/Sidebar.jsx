@@ -14,6 +14,9 @@ function Sidebar() {
                     <li className="sidebar-brand">
                          <Link to="/"> Manage Account </Link>
                     </li>
+                    <li>
+                         <Link to="/profile">Profile</Link> 
+                    </li>
                     {role === 'Owner' ? <>
                     <li>
                          <Link to="/cars">Cars List</Link>
@@ -24,9 +27,7 @@ function Sidebar() {
                     
                     </>:
                     <>
-                    <li>
-                         <Link to="/profile">Profile</Link> 
-                    </li>
+                    
                     <li>
                          <Link to="/status-requists">Status Requists</Link> 
                     </li>

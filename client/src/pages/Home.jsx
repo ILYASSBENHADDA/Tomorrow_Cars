@@ -9,7 +9,7 @@ function Home() {
      useEffect(()=> {
           axios.get('http://localhost:3030/api/read').then(response => {
                setCarList(response.data)
-               console.log(response)
+               // console.log(response)
           })
      }, [])
 

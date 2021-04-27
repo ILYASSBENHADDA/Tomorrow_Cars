@@ -1,18 +1,11 @@
-import axios from "axios"
-import React, { useState, useEffect } from "react"
+import React, { useContext } from "react"
 import Nav from './partials/Nav'
 import Sidebar from "./partials/Sidebar"
+import { UserContext } from "../components/UserContext"
 
 function Profile() {
 
-     const [userInfo, setUserInfo] = useState([])
-
-     useEffect(()=> {
-          axios.get('http://localhost:3030/api/profile').then(response => {
-               setUserInfo(response.data)
-               console.log(response)
-          })
-     }, [])
+     const {role, userInfo} = useContext(UserContext)
      
      return (
           <>
@@ -47,10 +40,16 @@ function Profile() {
                                              <th>Phone Number</th>
                                              <td>{userInfo.phone}</td>
                                         </tr>
+                                        {role === 'Client' ? 
                                         <tr>
                                              <th>Global Tries</th>
                                              <td>{userInfo.global_tries}</td>
                                         </tr>
+                                        :
+                                        <tr>
+                                             <th>RIB</th>
+                                             <td>{userInfo.rib}</td>
+                                        </tr> }
                                    </tbody>
                               </table>
                          </div>

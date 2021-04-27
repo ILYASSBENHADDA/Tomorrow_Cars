@@ -5,7 +5,7 @@ import { UserContext } from "../../components/UserContext"
 
 function Nav() {
 
-     const {role, isAuth} = useContext(UserContext)
+     const {role, isAuth, userInfo} = useContext(UserContext)
 
 
      return (
@@ -19,13 +19,13 @@ function Nav() {
                     <ul className="navbar-nav ml-auto">
                          {isAuth ? <>
                          <li>
-                              {role !== 'Client' ?
-                              <Link className="nav-link" to="/cars"><i class="fas fa-user  mr-1"></i> Account</Link> :
-                              <Link className="nav-link" to="/status-requists"><i class="fas fa-user  mr-1"></i> Account</Link>
+                              {role === 'Owner' ?
+                              <Link className="nav-link" to="/cars"><i class="fas fa-user  mr-1"></i>Welcome, <b>{userInfo.first_name}</b></Link> :
+                              <Link className="nav-link" to="/status-requists"><i class="fas fa-user  mr-1"></i>Welcome, <b>{userInfo.first_name}</b></Link>
                               }
                          </li>
                          <li> 
-                              <Link className="nav-link" onClick={()=> {window.location.reload()}} to="/logout"><i className="fas fa-sign-out-alt mr-1"></i>log out</Link> 
+                              <Link className="nav-link" onClick={()=> {window.location.reload()}} to="/logout"><i className="fas fa-sign-out-alt mr-1"></i>log Out</Link> 
                          </li>
                          </> : 
                          <> 
@@ -33,7 +33,7 @@ function Nav() {
                               <Link className="nav-link" to="/register"><i class="fas fa-user-plus mr-1"></i> Register</Link> 
                          </li>
                          <li> 
-                              <Link className="nav-link" to="/login"><i class="fas fa-sign-in-alt mr-1"></i> Login</Link> 
+                              <Link className="nav-link" to="/login"><i class="fas fa-sign-in-alt mr-1"></i> Log In</Link> 
                          </li>
                          </> }
                     </ul>

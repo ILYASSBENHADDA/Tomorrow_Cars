@@ -34,7 +34,7 @@ exports.ownerRegisterValidation = (data) => {
 exports.LoginValidation = (data) => {
      const schema = Joi.object({
           email: Joi.string().email().required(),
-          password: Joi.string().required().min(5).max(50)
+          password: Joi.string().required()
      })
 
      return schema.validate(data)

@@ -3,12 +3,12 @@ const Schema = mongoose.Schema
 
 // Car Schema
 let carSchema = new Schema({
-     registration_number: {type: String, default: ""},
-     name: {type: String, default: ""},
-     mark: {type: String,  default: ""},
-     color: {type: String, default: ""},
-     price: {type: Number, default: ""},
-     fuel: {type: String, default: ""},
+     registration_number: {type: String, required: true, default: ""},
+     name: {type: String, required: true, default: ""},
+     mark: {type: String, required: true, default: ""},
+     color: {type: String, required: true, default: ""},
+     price: {type: Number, required: true, default: ""},
+     fuel: {type: String, required: true, default: ""},
      is_saled: {type: Boolean, default: false},
 },
 { 
