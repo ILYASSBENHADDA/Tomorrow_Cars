@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import Nav from './partials/Nav'
+import { UserContext } from "../components/UserContext"
 
 
 function Single() {
+     const {role, isAuth} = useContext(UserContext)
+
      const { id } = useParams()
      const [oneCar, setOneCar] = useState('')
      const [reduction, setReduction] = useState(0)
@@ -83,9 +86,11 @@ function Single() {
                                    </div>
                               </div>
                               <hr/>
+                              { (role === 'Owner' || isAuth === false) ?  <h5><i>You have to log-in as client for Reserving Or Trying this Car</i></h5> : 
+                              <>
                               <button onClick={()=>{reserveCar()}} className="btn btn-lg btn-secondary mr-3"> RESERVE CAR </button>
-                              
                               <button onClick={()=>{tryCar()}} className="btn btn-lg btn-outline-secondary"> TRY CAR </button>
+                              </> }
                          </article>
                     </aside>
                </div>

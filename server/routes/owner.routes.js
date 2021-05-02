@@ -12,7 +12,7 @@ router.post('/addcar', isLoggedIn, Create)
 router.get('/read-owner', isLoggedIn, readOwner)
 
 // Read One Car
-router.get('/edit/:id', isLoggedIn, readOne)
+router.get('/edit/:id', readOne)
 
 // Update Cars
 router.put('/edit', isLoggedIn, Update)
@@ -21,7 +21,7 @@ router.put('/edit', isLoggedIn, Update)
 router.delete('/delete/:id', isLoggedIn, Delete)
 
 // Confirm car requist
-router.post('/confirm-requist', confirmReq)
+router.post('/confirm-requist', isLoggedIn, confirmReq)
 
 
 module.exports = router
